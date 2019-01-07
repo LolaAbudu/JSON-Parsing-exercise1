@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fruitRecyclerView = (RecyclerView) findViewById(R.id.movie_recyclerView);
+        fruitRecyclerView = (RecyclerView) findViewById(R.id.fruit_recyclerView);
 
         JSONObject myJSONObject = new JSONObject();
 
@@ -57,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
         List<Fruits> fruitsList = new ArrayList<>();
         try{
-            JSONObject toParseObject = new JSONObject();
-            JSONArray toPArseArray = toParseObject.getJSONArray("Fruits");
+            JSONObject toParseObject = new JSONObject(fruits);
+            JSONArray toParseArray = toParseObject.getJSONArray("Fruits");
 
-            for(int i = 0; i < toPArseArray.length(); i++){
+            for(int i = 0; i < toParseArray.length(); i++){
+                Log.d("Testing it out again", "onCreate" + myJSONObject.toString());
                Fruits allFruits = new Fruits();
-               allFruits.setName((String)toPArseArray.getJSONObject(i).get("name"));
-               allFruits.setSeedCount((int)toPArseArray.getJSONObject(i).get("age"));
+               allFruits.setName((String)toParseArray.getJSONObject(i).get("name"));
+               allFruits.setSeedCount((Integer)toParseArray.getJSONObject(i).get("age"));
+               allFruits.setColor((String)toParseArray.getJSONObject(i).get("color"));
                fruitsList.add(allFruits);
+                Log.d("Testing it out again2", "onCreate" + myJSONObject.toString());
             }
         }catch(JSONException e){
             e.printStackTrace();
